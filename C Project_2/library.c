@@ -19,12 +19,12 @@ void initSystem() {
     }
 }
 
-// 核心优化：DJB2 哈希算法
+// DJB2 哈希算法
 unsigned int hash(char* str) {
     unsigned int hash = 5381;
     int c;
     while ((c = *str++))
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+        hash = ((hash << 5) + hash) + c; 
     return hash % TABLE_SIZE;
 }
 

@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// 定义哈希表的大小 (质数通常能减少冲突)
-#define TABLE_SIZE 101
+#define TABLE_SIZE 10007      // 哈希表大小
 #define DATA_FILE "library_data.txt" // 定义文件名
 
 typedef struct Book {
@@ -11,11 +10,11 @@ typedef struct Book {
     char title[100];    
     char author[50];    
     int isBorrowed;     // 1: 已借出, 0: 在馆
-    struct Book* next;  
+	struct Book* next;  
 } Book;
 
 // 全局哈希表声明
-extern Book* hashTable[TABLE_SIZE];
+extern Book* hashTable[TABLE_SIZE];     //  指向链表头
 
 // 函数声明
 void initSystem();
@@ -24,7 +23,7 @@ void addBook(char* id, char* title, char* author);
 void deleteBook(char* id);
 Book* searchBook(char* id);
 void updateBook(char* id); // 修改书名或作者
-void borrowOrReturnBook(char* id, int action); // action 1: borrow, 0: return
+void borrowOrReturnBook(char* id, int action); // 1: 已借出, 0: 在馆
 void displayAll();
 void freeSystem();
 

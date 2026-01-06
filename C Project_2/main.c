@@ -11,7 +11,6 @@
 #define BLUE        "\033[34m"
 #define MAGENTA     "\033[35m"
 
-// 炫酷的启动 Logo
 void printLogo() {
     printf(CYAN BOLD);
     printf("  ██████╗  ██████╗  ██████╗  ██╗  ██╗    \n");
@@ -26,7 +25,6 @@ void printLogo() {
     printf(CYAN "--------------------------------------------------------------\n" RESET);
 }
 
-// 模拟“大牛”风格的加载条
 void loadingEffect() {
     printf(GREEN "加载中...");
     for (int i = 0; i < 20; i++) {
@@ -52,7 +50,7 @@ void printMenu() {
 }
 
 int main() {
-    // 2. 展示启动动画
+    // 展示启动动画
     printLogo();
     loadingEffect();
 
