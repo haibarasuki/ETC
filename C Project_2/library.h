@@ -5,6 +5,12 @@
 #define TABLE_SIZE 10007      // 哈希表大小
 #define DATA_FILE "library_data.txt" // 定义文件名
 
+// 定义用户角色
+typedef enum {
+    ROLE_ADMIN,  
+    ROLE_READER  
+} UserRole;
+
 typedef struct Book {
     char id[20];        // 书号 (作为哈希的Key)
     char title[100];    

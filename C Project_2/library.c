@@ -9,7 +9,7 @@
 #define BLUE        "\033[34m"
 #define MAGENTA     "\033[35m"
 
-// 定义哈希表 (每个元素是一个链表的头指针)
+// 哈希表 (每个元素是一个链表的头指针)
 Book* hashTable[TABLE_SIZE];
 
 // 初始化系统
@@ -28,7 +28,7 @@ unsigned int hash(char* str) {
     return hash % TABLE_SIZE;
 }
 
-// 增加图书 (使用宏定义颜色)
+// 增加图书 
 void addBook(char* id, char* title, char* author) {
     if (searchBook(id) != NULL) {
         printf(RED "[错误] 书号 %s 已存在！" RESET "\n", id);
