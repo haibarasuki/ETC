@@ -14,6 +14,18 @@
 
 UserRole currentUserRole;
 
+
+// 校验字符串是否全为数字
+int isAllDigits(char* str) {
+    if (str == NULL || strlen(str) == 0) return 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] < '0' || str[i] > '9') {
+            return 0; 
+        }
+    }
+    return 1;
+}
+
 // 隐藏密码输入
 void getPassword(char* password, int maxLength) {
     int i = 0;
@@ -21,12 +33,12 @@ void getPassword(char* password, int maxLength) {
     while (1) {
         ch = _getch();
 
-        if (ch == 13) { // 回车键 ASCII
+        if (ch == 13) { // 回车键 
             password[i] = '\0';
             printf("\n");
             break;
         }
-        else if (ch == 8) { // 退格键 ASCII
+        else if (ch == 8) { // 退格键
             if (i > 0) {
                 i--;
                 printf("\b \b");
@@ -177,7 +189,15 @@ int main() {
             }
             system("cls");
             printMenu();
-            printf(CYAN "请输入书号(ID): " RESET); scanf("%s", id);
+
+            // 循环校验书号
+            while (1) {
+                printf(CYAN "请输入书号: " RESET);
+                scanf("%s", id);
+                if (isAllDigits(id)) break;
+                printf(RED "[错误] 书号格式非法！请重新输入纯数字。\n" RESET);
+            }
+
             printf(CYAN "请输入书名: " RESET); scanf("%s", title);
             printf(CYAN "请输入作者: " RESET); scanf("%s", author);
             addBook(id, title, author);
@@ -194,17 +214,35 @@ int main() {
             deleteBook(id);
             break;
 
-        case 3: // Search
+		case 3: // Search
             system("cls");
             printMenu();
-            printf(YELLOW "请输入要查找的书号: " RESET); scanf("%s", id);
+
+            while (1) {
+                printf(YELLOW "请输入要查找的书号: " RESET);
+                scanf("%s", id);
+
+                if (isAllDigits(id)) {
+                    break;
+                }
+                printf(RED "[错误] 格式非法！书号必须由 0-9 数字组成，请重新输入。\n" RESET);
+            }
+
             Book* book = searchBook(id);
+
             if (book) {
-                printf(GREEN "[找到] " RESET "《%s》 " YELLOW "作者: " RESET "%s " YELLOW "状态: " RESET "%s\n",
-                    book->title, book->author, book->isBorrowed ? RED "已借出" RESET : GREEN "在馆" RESET);
+                printf(GREEN "\n[匹配成功] 找到相关图书记录：\n" RESET);
+                printf("----------------------------------\n");
+                printf(BOLD "书号: " RESET "%s\n", book->id);
+                printf(BOLD "书名: " RESET "《%s》\n", book->title);
+                printf(BOLD "作者: " RESET "%s\n", book->author);
+
+                printf(BOLD "当前状态: " RESET "%s\n",
+                    book->isBorrowed ? RED "● 已借出" RESET : GREEN "● 在馆" RESET);
+                printf("----------------------------------\n");
             }
             else {
-                printf(RED "[提示] 未找到该书。" RESET "\n");
+                printf(RED "\n[提示] 数据库中未检索到书号为 [%s] 的书籍。" RESET "\n", id);
             }
             break;
 

@@ -9,7 +9,6 @@
 #define BLUE        "\033[34m"
 #define MAGENTA     "\033[35m"
 
-// 哈希表 (每个元素是一个链表的头指针)
 Book* hashTable[TABLE_SIZE];
 
 // 初始化系统
